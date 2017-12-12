@@ -80,8 +80,27 @@ export default (state = default_state, action) => {
             }
             return res;
 
-        case 'DECREMENT':
-            return state - 1
+        case 'REVERSE_HISTORY_LIST':
+            return {...state, isHistoryListSortAsc: !state.isHistoryListSortAsc};
+            break;
+        case 'JUMP_TO': {
+            let step = action.action.step;
+
+            if (step < state.histories.length - 1) { // is not the latest movement
+                return {
+                    ...state,
+                    currentStep: step,
+                    canPlay: true,
+                    winningSquares: []
+                };
+            }
+            else {
+                return {
+                    ...state,
+                    currentStep: step,
+                };
+            }
+        }
         default:
             return state
     }

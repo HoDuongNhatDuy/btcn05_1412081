@@ -3,4 +3,14 @@ const SetSquare = (x, y) => ({
     action: {x, y}
 });
 
-export default {SetSquare}
+const ReverseHistoryList = () => ({
+    type: 'REVERSE_HISTORY_LIST',
+    action: {}
+});
+
+const JumpTo = (step) => ({
+    type: 'JUMP_TO',
+    action: {step}
+});
+
+export default {SetSquare, ReverseHistoryList, JumpTo}

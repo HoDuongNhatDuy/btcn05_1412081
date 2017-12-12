@@ -2,30 +2,12 @@ import React, {Component} from 'react';
 import Board from './Board';
 import './Caro.css';
 import { connect } from 'react-redux'
+import Actions from './Actions'
 
 class Caro extends React.Component {
-    // jumpTo(step){
-    //     if (step < this.props.histories.length - 1) { // is not the latest movement
-    //         this.setState({
-    //             currentStep: step,
-    //             canPlay: true,
-    //             winningSquares: []
-    //         });
-    //     }
-    //     else {
-    //         this.setState({
-    //             currentStep: step,
-    //         });
-    //     }
-    // }
-    //
-    // reverseHistoryList(){
-    //     this.setState({
-    //         isHistoryListSortAsc: !this.state.isHistoryListSortAsc
-    //     });
-    // }
-
     render() {
+        let {dispatch} = this.props;
+
         let current_step = this.props.currentStep;
         let current_board = this.props.histories[current_step];
 
@@ -37,7 +19,7 @@ class Caro extends React.Component {
             }
             return (
                 <li key={"move-" + history.currentX + "-" + history.currentY} className={selectedStep === step ? "selected" : "" }>
-                    <button onClick={() => this.jumpTo(step)}>{moveString}</button>
+                    <button onClick={() => dispatch(Actions.JumpTo(step))}>{moveString}</button>
                 </li>
             );
         });
@@ -57,7 +39,7 @@ class Caro extends React.Component {
                 <div className="game-info">
                     <div className="sort-block">
                         <label className="switch">
-                            <input type="checkbox" onClick={() => this.reverseHistoryList()} defaultChecked />
+                            <input type="checkbox" onClick={() => dispatch(Actions.ReverseHistoryList())} defaultChecked />
                             <span className="slider round"> </span>
                         </label>
                     </div>
